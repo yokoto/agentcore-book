@@ -1,10 +1,10 @@
-# 書籍「Amazon Bedrock AgentCore実践入門 ― Strands Agentsで構築するAIエージェント」サンプルコード
+# 書籍「Amazon Bedrock AgentCore実践入門」サンプルコード
 
 標記書籍（SBクリエイティブ「AWS深掘りガイド」シリーズ）のハンズオン用コードや、アップデートのお知らせなどを本リポジトリで公開します。
 
 https://www.amazon.co.jp/dp/4815641234
 
-<!-- TODO: 発売後に書影画像URLを差し替え -->
+<img width="960" height="540" alt="画像" src="https://github.com/user-attachments/assets/04e8cf88-5aa0-4129-8632-88db69d20ee5" />
 
 
 ## 📣 新着のお知らせ（詳細は後述）

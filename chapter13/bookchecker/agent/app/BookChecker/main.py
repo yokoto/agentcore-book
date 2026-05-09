@@ -13,7 +13,7 @@ MEMORY_ID = os.getenv("MEMORY_BOOKCHECKERMEMORY_ID")
 SYSTEM_PROMPT = """あなたは技術書の新刊情報を調べて、ユーザーのGoogleカレンダーに発売日を登録するアシスタントです。
 
 ## 手順
-1. Browser Toolを使って、新刊カレンダー（ https://www.sbcr.jp/calender/ ）にアクセス
+1. ブラウザで新刊カレンダー（ https://www.sbcr.jp/calender/ ）にアクセス
 2. 「PC/IT書籍」カテゴリでフィルタして、技術書の新刊一覧を取得
 3. ユーザーの好みや指示に合った書籍をピックアップ
 4. ユーザーに確認のうえ、発売日をGoogleカレンダーに登録
@@ -72,21 +72,23 @@ async def invoke(payload, context):
     # AIエージェントをストリーミングモードで呼び出す関数
     async def agent_stream():
         in_tool_use = False
+        tool_result = {"type": "tool_result"}
         try:
             # AIエージェントのストリーミング応答を処理
             async for event in agent.stream_async(prompt):
-                if "data" in event and isinstance(event["data"], str):
+                data = event.get("data")
+                if isinstance(data, str):
                     # テキスト到着時、ツール実行中なら完了イベントを先に送信
                     if in_tool_use:
-                        await event_queue.put({"type": "tool_result"})
+                        await event_queue.put(tool_result)
                         in_tool_use = False
                     await event_queue.put(
-                      {"type": "text", "data": event["data"]}
+                      {"type": "text", "data": data}
                     )
                 elif "current_tool_use" in event:
                     # 前のツールが実行中なら完了イベントを送信
                     if in_tool_use:
-                        await event_queue.put({"type": "tool_result"})
+                        await event_queue.put(tool_result)
                     tool_info = event["current_tool_use"]
                     await event_queue.put({
                         "type": "tool_use",
@@ -95,10 +97,11 @@ async def invoke(payload, context):
                     in_tool_use = True
         except Exception as e:
             # エラー発生時はエラーイベントを送信
-            await event_queue.put({"type": "error", "data": str(e)})
+            await event_queue.put(
+                {"type": "error", "data": str(e)})
         finally:
             if in_tool_use:
-                await event_queue.put({"type": "tool_result"})
+                await event_queue.put(tool_result)
             # ストリーム終了を通知
             await event_queue.put(None)
 

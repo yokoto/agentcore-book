@@ -21,24 +21,30 @@ uv run 01_simple.py
 ## 3.2.1 AIエージェントの構築
 
 ```bash
-uv add strands-agents
+uv add strands-agents==1.38.0
 ```
 
 ## 3.3.1 モデル
 
 ```bash
-uv add strands-agents[openai]  # OpenAIの場合
-uv add strands-agents[anthropic]  # Anthropicの場合
+uv add "strands-agents[openai]==1.38.0"  # OpenAIの場合
+uv add "strands-agents[anthropic]==1.38.0"  # Anthropicの場合
 ```
+
+`04-3_model.py` を実行する場合は、コード内の `api_key="<api key>"` を OpenAI のAPIキーに書き換えてから実行してください。
+
+## 3.3.2 プロンプト
+
+`05_prompt.py` の後半は画像入力の例として `image.jpg` を読み込みます。
 
 ## 3.3.3 ツール
 
 ```bash
-uv add strands-agents-tools
+uv add strands-agents-tools==0.5.1
 ```
 
 ```bash
-uv add strands-agents-tools[rss]
+uv add "strands-agents-tools[rss]==0.5.1"
 ```
 
 ## 3.4.2 Pythonプロジェクトの作成
@@ -50,7 +56,7 @@ cd chapter3/handson
 
 ```bash
 uv init --python 3.14
-uv add strands-agents==1.36.0 strands-agents-tools==0.5.0 boto3[crt]==1.42.92
+uv add strands-agents==1.38.0 strands-agents-tools==0.5.1 "boto3[crt]==1.42.96"
 ```
 
 ## 3.4.3 モデル、プロンプト、ツールを組み合わせる
@@ -62,7 +68,7 @@ uv run main.py
 ## 3.6.7 Strands AgentsでA2A連携を行う
 
 ```bash
-uv add "strands-agents[a2a]" strands-agents-tools
+uv add "strands-agents[a2a]==1.38.0" strands-agents-tools==0.5.1
 ```
 
 ```bash
@@ -72,11 +78,11 @@ curl http://localhost:9000/.well-known/agent-card.json
 ## 3.7.1 トレーシング
 
 ```bash
-uv add "strands-agents[otel]"
+uv add "strands-agents[otel]==1.38.0"
 ```
 
 ## 3.7.2 Evals SDK
 
 ```bash
-uv add strands-agents-evals
+uv add strands-agents-evals==0.1.15
 ```

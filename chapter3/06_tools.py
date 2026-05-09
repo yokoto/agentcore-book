@@ -21,7 +21,9 @@ agent("東京の天気を教えて")
 agent = Agent(tools=[tavily_search])
 agent("Strands Agentsの公式ドキュメントを検索して、MCPの概要を要約して")
 
+# AWS公式ドキュメントを検索できるMCPサーバーに接続
 mcp_client = MCPClient(
+    # Streamable HTTP方式で接続先URLを指定
     lambda: streamable_http_client("https://knowledge-mcp.global.api.aws")
 )
 

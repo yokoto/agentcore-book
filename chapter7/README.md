@@ -25,3 +25,5 @@ uv run 01_outbound.py
 ```bash
 uv run 02_callback_server.py
 ```
+
+OAuth認可完了後は `Ctrl+C` でサーバーを停止してください。port 9090 が使用中だった場合は `lsof -i :9090 -t | xargs kill` で解放できます。

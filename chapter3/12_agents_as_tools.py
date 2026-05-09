@@ -3,7 +3,7 @@ from strands_tools import http_request
 
 # 子エージェント（リサーチ担当）を定義
 research_agent = Agent(
-    name="Research Assistant",
+    name="ResearchAssistant",
     system_prompt="リサーチを行う専門エージェントです。",
     tools=[http_request],
 )

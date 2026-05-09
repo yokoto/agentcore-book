@@ -18,6 +18,7 @@ import * as fs from 'fs';
 // .envファイルを読み込み（chapter15/.env）
 dotenv.config({
   path: path.join(__dirname, '../../.env'),
+  override: true,
 });
 
 export class ExpenseAgentStack extends cdk.Stack {
@@ -154,6 +155,16 @@ export class ExpenseAgentStack extends cdk.Stack {
           'bedrock:InvokeModel',
           'bedrock:InvokeModelWithResponseStream',
           'ecr:GetAuthorizationToken',
+        ],
+        resources: ['*'],
+      }),
+    );
+    agentExecutionRole.addToPolicy(
+      new iam.PolicyStatement({
+        actions: [
+          'aws-marketplace:Subscribe',
+          'aws-marketplace:Unsubscribe',
+          'aws-marketplace:ViewSubscriptions',
         ],
         resources: ['*'],
       }),

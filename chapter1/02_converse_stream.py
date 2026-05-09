@@ -22,4 +22,5 @@ for chunk in streaming_response["stream"]:
     if "contentBlockDelta" in chunk:
         text = chunk["contentBlockDelta"]["delta"]["text"]
         print(text, end="")  # 出力後の改行を抑制するために「end=""」を指定
+
 print("")  # すべての出力が終わったら改行する

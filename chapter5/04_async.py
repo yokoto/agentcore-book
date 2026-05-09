@@ -24,7 +24,10 @@ def slide_generator():
     return "スライド作成を開始しました"
 
 # Strandsでエージェントを作成
-agent = Agent(tools=[slide_generator])
+agent = Agent(
+    model="us.anthropic.claude-sonnet-4-6",
+    tools=[slide_generator],
+)
 
 # APIサーバーのエントリーポイントを作成
 @app.entrypoint

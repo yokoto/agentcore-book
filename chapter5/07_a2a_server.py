@@ -5,6 +5,7 @@ from bedrock_agentcore.runtime import serve_a2a
 
 # A2Aサーバーに載せたいエージェントを作成
 agent = Agent(
+    model="us.anthropic.claude-sonnet-4-6",
     description="計算エージェント",
     tools=[calculator]
 )

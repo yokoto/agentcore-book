@@ -11,8 +11,8 @@ uv init --python 3.14
 ```
 
 ```bash
-uv add strands-agents==1.36.0 "strands-agents-tools[rss]"==0.5.0 rich==14.3.3
-uv add --dev "boto3[crt]"==1.42.92
+uv add strands-agents==1.38.0 "strands-agents-tools[rss]==0.5.1" rich==14.3.3
+uv add --dev "boto3[crt]==1.42.96"
 ```
 
 ## 4.4.1 プログラムの実行

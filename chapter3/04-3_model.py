@@ -4,6 +4,6 @@ from strands.models.openai import OpenAIModel
 
 client = AsyncOpenAI(api_key="<api key>")
 agent = Agent(
-    model=OpenAIModel(model_id="gpt-5.2", client=client),
+    model=OpenAIModel(model_id="gpt-5.5", client=client),
 )
 agent("こんにちは")

@@ -2,7 +2,7 @@ from strands import Agent
 from bedrock_agentcore import BedrockAgentCoreApp
 
 # AIエージェントとAPIサーバーを作成
-agent = Agent()
+agent = Agent(model="us.anthropic.claude-sonnet-4-6")
 app = BedrockAgentCoreApp()
 
 # APIサーバーのエントリーポイントを設定

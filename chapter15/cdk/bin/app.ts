@@ -9,5 +9,5 @@ new ExpenseAgentStack(app, 'ExpenseAgentStack', {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION ?? 'us-east-1',
   },
-  description: '経費精算エージェント インフラストラクチャ',
+  description: 'Expense Agent Infrastructure',
 });

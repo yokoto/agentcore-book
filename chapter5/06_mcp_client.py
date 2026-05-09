@@ -6,7 +6,7 @@ AGENT_ARN = "<MCPサーバーのランタイムARN>"
 
 # ARNをエンコードしてURLを作成
 encoded_arn = AGENT_ARN.replace(":", "%3A").replace("/", "%2F")
-mcp_url = (f"https://bedrock-agentcore.us-east-1.amazonaws.com/runtimes/{encoded_arn}/invocations")
+mcp_url = f"https://bedrock-agentcore.us-east-1.amazonaws.com/runtimes/{encoded_arn}/invocations"
 
 # MCPクライアントを作成
 mcp_client = MCPClient(

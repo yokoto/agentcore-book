@@ -16,5 +16,5 @@
 Strands AgentsにOpenTelemetry向けの依存関係を追加
 
 ```bash
-uv add 'strands-agents[otel]'
+uv add 'strands-agents[otel]==1.38.0'
 ```

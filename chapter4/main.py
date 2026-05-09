@@ -1,4 +1,4 @@
-import asyncio, gc
+import asyncio
 
 from agents.orchestrator_agent import create_orchestrator_agent
 from rich import print
@@ -32,4 +32,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-    gc.collect()  # StrandsのPython 3.14バグ対策

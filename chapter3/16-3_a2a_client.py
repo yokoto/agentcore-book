@@ -6,7 +6,7 @@ from strands_tools.a2a_client import A2AClientToolProvider
 # A2Aツール群を初期化
 provider = A2AClientToolProvider(known_agent_urls=["http://localhost:9000"])
 
-# リモートエージェントを利用できる親エージェントを作成
+# サーバーエージェントを利用できるクライアントエージェントを作成
 agent = Agent(tools=provider.tools)
 
 

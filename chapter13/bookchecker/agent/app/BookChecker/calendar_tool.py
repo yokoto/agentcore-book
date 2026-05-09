@@ -49,9 +49,10 @@ def make_calendar_tool(event_queue):
                 "end": {"date": end_date},
             }
             # Google Calendar APIにイベントを追加する
+            bearer = f"Bearer {access_token}"
             resp = requests.post(
                 "https://www.googleapis.com/calendar/v3/calendars/primary/events",
-                headers={"Authorization": f"Bearer {access_token}"},
+                headers={"Authorization": bearer},
                 json=event,
             )
             return resp.json()
@@ -61,7 +62,10 @@ def make_calendar_tool(event_queue):
 
         # 結果に応じて成功・失敗メッセージを返す
         if "error" in result:
-            return f"カレンダー登録に失敗しました: {result['error']['message']}"
-        return f"カレンダーに登録しました: {result.get('summary')} ({result.get('start', {}).get('date')})"
+            error_msg = result["error"]["message"]
+            return f"カレンダー登録に失敗しました: {error_msg}"
+        title = result.get("summary")
+        date = result.get("start", {}).get("date")
+        return f"カレンダーに登録しました: {title} ({date})"
 
     return add_calendar_event

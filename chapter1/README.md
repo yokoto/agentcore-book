@@ -15,7 +15,7 @@ cd chapter1
 
 ```bash
 uv init --python 3.14
-uv add boto3[crt]==1.42.92
+uv add "boto3[crt]==1.42.96"
 ```
 
 ```bash

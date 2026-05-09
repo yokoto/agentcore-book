@@ -17,7 +17,7 @@ uv sync
 Strands Agents EvalsとAgentCoreを連携させる依存関係を追加
 
 ```sh
-uv add 'bedrock-agentcore[strands-agents-evals]==1.6.3'
+uv add 'bedrock-agentcore[strands-agents-evals]==1.6.4'
 ```
 
 オンデマンド評価のサンプルコード（`02_on_demand.py`）の実行

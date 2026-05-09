@@ -2,6 +2,7 @@ import base64
 import hashlib
 import json
 import os
+import threading
 import urllib.request
 from datetime import datetime, timezone
 
@@ -63,7 +64,7 @@ SYSTEM_PROMPT = """
 3. `get_approver_by_amount`で承認者候補を取得し、金額に基づいて1人選定
    - 金額 <= 10万: 課長 / 金額 > 10万: 部長
 4. `send_approval_request`で承認依頼メールを送信
-   - 必要な全情報（経費ID、金額、カテゴリ、内容、ベンダー名、取引日、申請者、承認者）を渡す
+   - 必要な全情報（経費ID、金額、カテゴリー、内容、ベンダー名、取引日、申請者、承認者）を渡す
 
 ## 承認後処理フロー（承認コールバック時）
 - 承認（approved）の場合: `write_to_confluence`でConfluenceに経費記録を書き込む
@@ -103,32 +104,32 @@ def search_classification_info(vendor_name: str, description: str, amount: int) 
     print(f"[分類] ベンダー={vendor_name},"
           f" 内容={description}, 金額={amount}")
 
-    # 1. 社内ルールでマッチング
+    # 1. 社内ルールを確認
     # S3から分類ルールを読み込み
     rules = json.loads(
         s3.get_object(Bucket=BUCKET_NAME, Key="data/classification_rules.json")
         ["Body"].read().decode("utf-8")
     )["rules"]
-    # キーワードが一致する最初のルールを取得
+    # 2. vendor_keywordsにマッチ？
     matched = next(
         (r["category"] for r in rules
          if any(kw in vendor_name for kw in r.get("vendor_keywords", []))),
         None
     )
+    # 3. マッチしたら経費カテゴリを分類
     if matched:
         print(f"[分類] 社内ルールにマッチ: {matched}")
         return {"success": True, "category": matched, "source": "internal_rule"}
 
-    # 2. マッチしなければLLM推論
+    # 4. マッチしなければLLM推論
+    # 5. 経費カテゴリを分類
     print("[分類] 社内ルールにマッチなし、LLM推論を実行")
     query = f"""
     以下の経費情報から適切な経費カテゴリーを判断してください。
-
     支払先: {vendor_name}
     内容: {description}
     金額: {amount:,}円
-
-    カテゴリ: 交通費、宿泊費、交際費、消耗品費、通信費、備品費、研修費、その他"""
+    カテゴリー: 交通費、宿泊費、交際費、消耗品費、通信費、備品費、研修費、その他"""
 
     agent = Agent(
         model=BedrockModel(model_id=BEDROCK_MODEL_ID),
@@ -316,9 +317,17 @@ def process_expense(request: dict) -> dict:
 - 申請者メール: {submitter_email}
 """
 
-    result = create_agent()(prompt)
-    output = str(result)
-    return {"success": True, "expense_id": expense_id, "result": output}
+    # 非同期タスクとして実行
+    task_id = app.add_async_task(
+        "expense_processing", {"expense_id": expense_id})
+    def worker():
+        try:
+            create_agent()(prompt)
+        finally:
+            app.complete_async_task(task_id)
+    threading.Thread(target=worker, daemon=True).start()
+
+    return {"accepted": True, "expense_id": expense_id}
 
 
 # 承認コールバックからの処理
@@ -333,7 +342,7 @@ def process_approval(request: dict) -> dict:
 - アクション: {action}
 - 経費ID: {expense_id}
 - 金額: {record.get('amount')}
-- カテゴリ: {record.get('category')}
+- カテゴリー: {record.get('category')}
 - 支払先: {record.get('vendor_name')}
 - 内容: {record.get('description')}
 - 取引日: {record.get('transaction_date')}

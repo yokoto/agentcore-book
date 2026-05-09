@@ -25,6 +25,3 @@ google-oauth-client-XXXXX
 
 検出URL（13.4.8のインバウンド認証で利用。上記ユーザープールIDを埋め込む）
 https://cognito-idp.us-east-1.amazonaws.com/us-east-1_XXXXXXXXX/.well-known/openid-configuration
-
-ランタイムID（13.4.8でメモ → 13.4.8のワークロードID設定で利用）
-agent_BookChecker-XXXXXXXXXX

@@ -18,11 +18,13 @@ uv run 01_stm.py
 
 ## 6.3.2 長期記憶の取得
 
+`6.2.2` で `01_stm.py` を実行して会話イベントを保存してから、約1分待ってから実行してください。長期記憶の抽出はバックグラウンドの非同期処理のため、保存直後は検索結果が空になります。
+
 ```bash
 uv run 02_ltm.py
 ```
 
-## 6.4.1 SDKによる実装例
+## 6.4.1 AgentCore SDKによる実装例
 
 ```bash
 uv run 03_sdk.py
@@ -31,7 +33,7 @@ uv run 03_sdk.py
 ## 6.5.1 エージェントへのメモリー統合
 
 ```bash
-uv add "bedrock-agentcore[strands-agents]"
+uv add "bedrock-agentcore[strands-agents]==1.6.4"
 ```
 
 ```bash

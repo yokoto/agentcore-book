@@ -1,9 +1,13 @@
-import { Agent } from '@strands-agents/sdk'
+import { Agent, BedrockModel } from '@strands-agents/sdk'
 import { BedrockAgentCoreApp } from 'bedrock-agentcore/runtime'
 import { z } from 'zod'
 
 // AIエージェントとAPIサーバーを作成
-const agent = new Agent()
+const agent = new Agent({
+    model: new BedrockModel({
+        modelId: 'us.anthropic.claude-sonnet-4-6',
+    }),
+})
 const app = new BedrockAgentCoreApp({
     invocationHandler: {
         requestSchema: z.object({

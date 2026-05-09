@@ -14,7 +14,7 @@ mkdir data
 ```
 
 ```bash
-uv add strands-agents==1.36.0 bedrock-agentcore==1.6.3 boto3==1.42.92
+uv add strands-agents==1.38.0 bedrock-agentcore==1.6.4 boto3==1.42.96
 ```
 
 ## 15.2.3 環境変数と設定ファイル
@@ -67,10 +67,10 @@ cd cdk
 npm init -y
 
 # CDK本体とAgentCoreコンストラクトをインストール
-npm install aws-cdk-lib@2.250.0 constructs@10.6.0 @aws-cdk/aws-bedrock-agentcore-alpha@2.250.0-alpha.0 @cdklabs/deploy-time-build@0.1.2 dotenv@17.4.2
+npm install aws-cdk-lib@2.251.0 constructs@10.6.0 @aws-cdk/aws-bedrock-agentcore-alpha@2.251.0-alpha.0 @cdklabs/deploy-time-build@0.1.3 dotenv@17.4.2
 
 # TypeScriptとCDK CLIを開発用にインストール
-npm install -D typescript@6.0.3 ts-node @types/node aws-cdk@2.1118.2
+npm install -D typescript@6.0.3 ts-node@10.9.2 @types/node@22.19.17 aws-cdk@2.1119.0
 ```
 
 ## 15.6.1 CDKデプロイ

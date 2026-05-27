@@ -12,6 +12,14 @@ https://www.amazon.co.jp/dp/4815641234
 まだありません！つまり、書籍単体で何も問題なく機能しているということです 🎉
 
 
+## 🥰 読者のみなさまのブログ紹介
+
+素敵な感想・書評をどうもありがとうございます！！
+
+- 神野 雄大さん [【書評】 Amazon Bedrock AgentCore 実践入門 ─ AWSでAIエージェントを構築・運用するための一冊 | DevelopersIO](https://dev.classmethod.jp/articles/book-review-amazon-bedrock-agentcore-jissen-nyumon/)
+- 白鳥さん（ホワイトバード先輩） [【書評】「Amazon Bedrock AgentCore 実践入門」| Nextmode Blog](https://info.nextmode.co.jp/blog/book-review-amazon-bedrock-agentcore-nextmode-blog)
+
+
 ## 💻 サンプルコードの使い方
 
 各チャプター名のディレクトリ配下に、書籍内のサンプルコードを格納しています。また、コマンド類も各章READMEに記載しています。

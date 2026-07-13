@@ -7,7 +7,8 @@ def print_callback_handler(**kwargs):
 
 
 agent = Agent(
-    # ストリーミング方式 – ストリーミング処理を行う関数を指定
+    # ストリーミング方式 – コールバックハンドラ方式
+    # ストリーミング処理を行う関数を指定
     callback_handler=print_callback_handler
 )
 
